@@ -4,7 +4,7 @@
 .DESCRIPTION
   The Prusa firmware build environment is picky about Arduino versions and requires some modification to the default Arduino IDE settings before you can get started.  This script will automatically download all of the required components with the correct versions and make the necessary configuration changes to allow the user to successfully compile the Prusa firmware.  The deployed environment will be portable and will not interfere with any existing Arduino installations on your system.
   
-  The downloaded environment will be placed into .\Prusa-Firmware by default, a different folder can be provided with the -Path argument.
+  The downloaded environment will be placed into .\Prusa-Firmware by default.  A different folder can be provided with the -Path argument.
 
   This script requires PowerShell version 5, installed by default in Windows 10 and available for download from Microsoft for earlier operating systems from the following URL: https://www.microsoft.com/en-us/download/details.aspx?id=50395
 .PARAMETER Path
@@ -38,7 +38,6 @@ $ArduinoIdeFile="arduino-1.6.8-windows.zip"
 $BootloaderUri="https://raw.githubusercontent.com/arduino/Arduino/master/hardware/arduino/avr/bootloaders/stk500v2/stk500boot_v2_mega2560.hex"
 $BootloaderFile="stk500boot_v2_mega2560.hex"
 
-
 Write-Host "Downloading latest Prusa firmware from GitHub"
 Invoke-WebRequest -Uri $PrusaFwUri -OutFile $PrusaFwFile
 Write-Host "Downloading Arduino IDE v1.6.8"
@@ -70,7 +69,7 @@ Copy-Item -Path $BootloaderFile -Destination ".\arduino-1.6.8\hardware\marlin\av
 
 # Set the board definition if this is a new deployment
 If (-Not (Test-Path -Path ".\arduino-1.6.8\portable\preferences.txt")) {
-  Set-Content -Path ".\arduino-1.6.8\portable\preferences.txt" -Value "board=rambo","target_package=marlin"
+  Set-Content -Path ".\arduino-1.6.8\portable\preferences.txt" -Value "board=rambo","target_package=marlin","update.check=false"
 }
 
 # Create shortcut to launch the firmware in the Arduino IDE
