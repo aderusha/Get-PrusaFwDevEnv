@@ -19,6 +19,7 @@ For example, edit the `Configuration_prusa.h` file and edit (at your own risk):
 * Bed PID tuning: `DEFAULT_bedKp`, `DEFAULT_bedKi`, `DEFAULT_bedKd` values
 * Extruder fan noise: reduce `EXTRUDER_AUTO_FAN_SPEED` from `255` to `96` (experiment a bit)
 
+**Note**: The current Prusa codebase will throw some warnings during compilation.  Don't be alarmed if you see errors like `"WARNING: Category '' in library Wire is not valid[...]` or `Warning: platform.txt from core 'Marlin AVR Boards' contains deprecated[...] "`.
 ### Step 3 - Build the Firmware
 You can now build the firmware:
 
