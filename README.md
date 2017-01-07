@@ -19,14 +19,15 @@ For example, edit the `Configuration_prusa.h` file and edit (at your own risk):
 * Bed PID tuning: `DEFAULT_bedKp`, `DEFAULT_bedKi`, `DEFAULT_bedKd` values
 * Extruder fan noise: reduce `EXTRUDER_AUTO_FAN_SPEED` from `255` to `96` (experiment a bit)
 
-**Note**: The current Prusa codebase will throw some warnings during compilation.  Don't be alarmed if you see errors like `"WARNING: Category '' in library Wire is not valid[...]` or `Warning: platform.txt from core 'Marlin AVR Boards' contains deprecated[...] "`.  These are normal for the current codebase and won't prevent you from compiling or using the firmware.
 ### Step 3 - Build the Firmware
 You can now build the firmware:
 
-* Compile the firmware with `Sketch -> Build (CTRL-R)`.
+* Compile[<sup>*</sup>](#note) the firmware with `Sketch -> Build (CTRL-R)`.
 * Export the compiled binary with `Sketch -> Export compiled sketch (CTRL-ALT-S)`.
 
 The compiled firmware will be exported to `Prusa-Firmware-MK2\Firmware\Firmware.ino.with_bootloader.rambo.hex`
+
+**<a name="note"><sup>*</sup>Note</a>**: The current Prusa codebase will throw some warnings during compilation.  Don't be alarmed if you see errors like `"WARNING: Category '' in library Wire is not valid[...]` or `Warning: platform.txt from core 'Marlin AVR Boards' contains deprecated[...] "`.  These are normal for the current codebase and won't prevent you from compiling or using the firmware.
 
 ### Step 4 - Upload the Firmware
 [Follow Prusa's official firmware upgrade guide here](http://manual.prusa3d.com/Guide/Upgrading+firmware/66).
