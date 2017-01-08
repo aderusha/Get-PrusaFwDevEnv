@@ -1,6 +1,6 @@
 @echo off
 title Deploying Prusa Firmware Development Environment
-PowerShell.exe -ExecutionPolicy Bypass -Command "& '.\Get-PrusaFwDevEnv.ps1'"
+PowerShell.exe -ExecutionPolicy Bypass -Command "& '.\Get-PrusaFwDevEnv.ps1'" "-Path .\Prusa-Firmware" "-RAMBo 3"
 if errorlevel 1 (
   echo Powershell returned an error, likely due to an outdated version.
   echo Download the latest release of Powershell for your system here:
