@@ -41,7 +41,7 @@ $ArduinoIdeFile="arduino-1.6.8-windows.zip"
 $BootloaderUri="https://raw.githubusercontent.com/arduino/Arduino/master/hardware/arduino/avr/bootloaders/stk500v2/stk500boot_v2_mega2560.hex"
 $BootloaderFile="stk500boot_v2_mega2560.hex"
 
-# Notify the user what we're up to and move ourselves down a few lines to the text won't be covered by the download progress indicator
+# Notify the user what we're up to and move ourselves down a few lines so the text won't be covered by the download progress indicator
 Write-Host -NoNewline -ForegroundColor Yellow "Deploying Prusa mk2 development environment to: "
 Write-Host "$Path"
 Write-Host "`n`n`n`n`n`n"
