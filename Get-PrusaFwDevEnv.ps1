@@ -9,6 +9,8 @@
   This script requires PowerShell version 5, installed by default in Windows 10 and available for download from Microsoft for earlier operating systems from the following URL: https://www.microsoft.com/en-us/download/details.aspx?id=50395
 .PARAMETER Path
   Specify the target folder for deploying the development environment.  Default is ".\Prusa-Firmware"
+.PARAMETER RAMBo
+  Specify the RAMBo Mini controller variant.  This value can be either "0" for RAMBo Mini 1.0-1.2, or "3" for RAMBo Mini 1.3a.  Default is 1.3a unless specified.
 .EXAMPLE
   PS> Get-PrusaFwDevEnv.ps1 -Path PrusaDev
   
@@ -19,7 +21,8 @@
 #Requires -Version 5.0
 
 Param(
-  [Parameter(Position=0,HelpMessage="Prusa development environment deployment path")][String]$Path=".\Prusa-Firmware"
+  [Parameter(Position=0,HelpMessage="Prusa development environment deployment path")][String]$Path=".\Prusa-Firmware",
+  [Parameter(Position=1,HelpMessage="Enter RAMBo variant 1.[0] or 1.[3]")][ValidateSet('0','3')][String]$RAMBo=3
 )
 
 # Create our target path if it doesn't exist already and change our working directory
@@ -29,7 +32,7 @@ If (-Not (Test-Path -Path $Path)) {
 Push-Location -Path $Path
 
 # Set this to the version of RAMBo installed in your printer.
-$RAMBoVariant="1_75mm_MK2-RAMBo13a-E3Dv6full"
+$RAMBoVariant="1_75mm_MK2-RAMBo1${RAMBo}a-E3Dv6full"
 
 $PrusaFwUri="https://codeload.github.com/prusa3d/Prusa-Firmware/zip/MK2"
 $PrusaFwFile="Prusa-Firmware-MK2.zip"
@@ -37,6 +40,27 @@ $ArduinoIdeUri="https://downloads.arduino.cc/arduino-1.6.8-windows.zip"
 $ArduinoIdeFile="arduino-1.6.8-windows.zip"
 $BootloaderUri="https://raw.githubusercontent.com/arduino/Arduino/master/hardware/arduino/avr/bootloaders/stk500v2/stk500boot_v2_mega2560.hex"
 $BootloaderFile="stk500boot_v2_mega2560.hex"
+
+# Notify the user what we're up to and move ourselves down a few lines to the text won't be covered by the download progress indicator
+Write-Host -NoNewline -ForegroundColor Yellow "Deploying Prusa mk2 development environment to: "
+Write-Host "$Path"
+Write-Host "`n`n`n`n`n`n"
+
+Write-Host "This might take a few minutes, so while it's running check and make sure that"
+Write-Host "you have selected the correct RAMBo Mini controller variant for your printer.`n"
+If ($RAMBo) {
+  Write-Host -NoNewline "This is currently set to "
+  Write-Host -NoNewline -ForegroundColor Red "RAMBo Mini variant 1.3a"
+  Write-Host ", which ships with all new"
+  Write-Host "Prusa mk2 printers. If this is incorrect (say, if you upgraded from a mk1),"
+  Write-Host "please cancel the script now and re-run it with the `"-RAMBo 0`" parameter.`n"
+}
+Else {
+  Write-Host -NoNewline "You have manually selected the "
+  Write-Host -NoNewline -ForegroundColor Red "RAMBo Mini variant 1.0"
+  Write-Host ".  If this is incorrect,"
+  Write-Host "please cancel the script and run it without forcing this version."
+}
 
 Write-Host "Downloading latest Prusa firmware from GitHub"
 Invoke-WebRequest -Uri $PrusaFwUri -OutFile $PrusaFwFile
@@ -76,7 +100,7 @@ If (-Not (Test-Path -Path ".\arduino-1.6.8\portable\preferences.txt")) {
 $Shell = New-Object -ComObject ("WScript.Shell")
 $ShortCut = $Shell.CreateShortcut("$pwd\Prusa Firmware Development.lnk")
 $ShortCut.TargetPath="$pwd\arduino-1.6.8\arduino.exe"
-$ShortCut.Arguments="$pwd\Prusa-Firmware-MK2\Firmware\Firmware.ino"
+$ShortCut.Arguments="`"$pwd\Prusa-Firmware-MK2\Firmware\Firmware.ino`""
 $ShortCut.Description = "Launch the Arduino IDE for Prusa Firmware Development";
 $ShortCut.Save()
 
