@@ -38,7 +38,7 @@ $PrusaFwUri="https://codeload.github.com/prusa3d/Prusa-Firmware/zip/MK2"
 $PrusaFwFile="Prusa-Firmware-MK2.zip"
 $ArduinoIdeUri="https://downloads.arduino.cc/arduino-1.6.8-windows.zip"
 $ArduinoIdeFile="arduino-1.6.8-windows.zip"
-$BootloaderUri="https://raw.githubusercontent.com/arduino/Arduino/master/hardware/arduino/avr/bootloaders/stk500v2/stk500boot_v2_mega2560.hex"
+$BootloaderUri="https://raw.githubusercontent.com/arduino/ArduinoCore-avr/master/bootloaders/stk500v2/stk500boot_v2_mega2560.hex"
 $BootloaderFile="stk500boot_v2_mega2560.hex"
 
 # Notify the user what we're up to and move ourselves down a few lines so the text won't be covered by the download progress indicator
